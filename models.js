@@ -1,0 +1,18 @@
+const mongoose = require('mongoose');
+
+const workoutSchema = new mongoose.Schema({
+    day: Date,
+    exercises: [
+        {
+            type: String,
+            name: String,
+            duration: Number,
+            weight: Number,
+            reps: Number,
+            sets: Number,
+        }
+    ]
+}, { typeKey: '$type' });
+const Workout = mongoose.model('Workout', workoutSchema);
+
+module.exports = { Workout };

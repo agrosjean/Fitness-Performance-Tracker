@@ -1,7 +1,14 @@
 const mongoose = require('mongoose');
 const db = require('../models');
 
-mongoose.connect('mongodb://localhost/workout', {
+const dbHost = process.env.DB_HOST || 'localhost';
+const dbName = process.env.DB_NAME || 'workout';
+const dbUser = process.env.DB_USER || '';
+const dbPass = process.env.DB_PASS || '';
+const jointUserPass = !dbUser && !dbPass ? '' : `${dbUser}:${dbPass}@`;
+
+// Connect to NongoDB
+mongoose.connect(`mongodb://${jointUserPass}${dbHost}/${dbName}`, {
   useNewUrlParser: true,
   useFindAndModify: false,
   useUnifiedTopology: true,

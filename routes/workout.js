@@ -4,7 +4,7 @@ const db = require('../models');
 
 // [GET] /api/workouts
 router.get('/', async (req, res) => {
-    const workouts = await db.Workout.find();
+    const workouts = await db.Workout.aggregate([{ $addFields: { totalDuration: { $sum: '$exercises.duration' } } }]);
     res.json(workouts);
 });
 
@@ -17,7 +17,8 @@ router.post('/', async (req, res) => {
 
 // [GET] /api/workouts/range
 router.get('/range', async (req, res) => {
-    res.status(500).send('');
+    const workouts = await db.Workout.aggregate([{ $addFields: { totalDuration: { $sum: '$exercises.duration' } } }]);
+    res.json(workouts);
 });
 
 // [PUT] /api/workouts/:id

@@ -6,7 +6,6 @@ async function initWorkout() {
       .querySelector("a[href='/exercise?']")
       .setAttribute("href", `/exercise?id=${lastWorkout._id}`);
 
-    debugger;
     const workoutSummary = {
       date: formatDate(lastWorkout.day),
       totalDuration: lastWorkout.totalDuration,
@@ -58,8 +57,6 @@ function renderWorkoutSummary(summary) {
     totalDistance: "Total Distance Covered"
   };
 
-  console.log(Object.keys(summary));
-  debugger;
   Object.keys(summary).forEach(key => {
     const p = document.createElement("p");
     const strong = document.createElement("strong");

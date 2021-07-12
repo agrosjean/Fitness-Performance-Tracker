@@ -6,6 +6,7 @@ async function initWorkout() {
       .querySelector("a[href='/exercise?']")
       .setAttribute("href", `/exercise?id=${lastWorkout._id}`);
 
+    debugger;
     const workoutSummary = {
       date: formatDate(lastWorkout.day),
       totalDuration: lastWorkout.totalDuration,
@@ -26,7 +27,7 @@ function tallyExercises(exercises) {
       acc.totalSets = (acc.totalSets || 0) + curr.sets;
       acc.totalReps = (acc.totalReps || 0) + curr.reps;
     } else if (curr.type === "cardio") {
-      acc.totalDistance = (acc.totalDistance || 0) + curr.distance;
+      acc.totalDistance = (acc.totalDistance || 0) + (curr.distance || 0);
     }
     return acc;
   }, {});
@@ -57,6 +58,8 @@ function renderWorkoutSummary(summary) {
     totalDistance: "Total Distance Covered"
   };
 
+  console.log(Object.keys(summary));
+  debugger;
   Object.keys(summary).forEach(key => {
     const p = document.createElement("p");
     const strong = document.createElement("strong");

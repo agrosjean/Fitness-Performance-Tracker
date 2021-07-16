@@ -7,10 +7,12 @@ const dbHost = process.env.DB_HOST || 'localhost';
 const dbName = process.env.DB_NAME || 'workout';
 const dbUser = process.env.DB_USER || ''; // alex
 const dbPass = process.env.DB_PASS || ''; // alex1234
-const jointUserPass = !dbUser && !dbPass ? '' : `${dbUser}:${dbPass}@`;
+const jointUserPass = !dbUser && !dbPass ? '' : `${dbUser}: ${dbPass}@`;
+
+const mongoUri = process.env.MONGODB_URL ? process.env.MONGODB_URL : `mongodb://${jointUserPass}${dbHost}/${dbName}`;
 
 // Connect to NongoDB
-mongoose.connect(`mongodb://${jointUserPass}${dbHost}/${dbName}`, {
+mongoose.connect(mongoUri, {
     useNewUrlParser: true,
     useFindAndModify: false,
     useUnifiedTopology: true,
